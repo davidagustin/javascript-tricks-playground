@@ -627,3 +627,138 @@ body {
   border-radius: 8px;
   margin: 1rem 0;
 }
+
+/* Dark mode styles */
+.App.dark {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+}
+
+.App.dark .App-header {
+  background: rgba(26, 32, 44, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.App.dark .App-header h1 {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.App.dark .App-header p {
+  color: #a0aec0;
+}
+
+.App.dark .category-nav {
+  background: rgba(26, 32, 44, 0.9);
+}
+
+.App.dark .category-btn {
+  background: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+.App.dark .category-btn:hover {
+  border-color: #667eea;
+  background: #4a5568;
+}
+
+.App.dark .category-btn.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.App.dark .tricks-container {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+.App.dark .tricks-container h2 {
+  color: #f7fafc;
+}
+
+.App.dark .section-description {
+  color: #a0aec0;
+}
+
+.App.dark .example-card {
+  background: #4a5568;
+}
+
+.App.dark .code-container {
+  background: #1a202c;
+}
+
+.App.dark .code-header {
+  background: #2d3748;
+  border-bottom-color: #4a5568;
+}
+
+.App.dark .result-container {
+  background: #4a5568;
+  border-color: #718096;
+}
+
+.App.dark .result-container h5 {
+  color: #f7fafc;
+}
+
+.App.dark .result {
+  background: #2d3748;
+  border-color: #718096;
+  color: #e2e8f0;
+}
+
+.App.dark .explanation {
+  background: #2c5282;
+  border-left-color: #3182ce;
+}
+
+.App.dark .explanation h5 {
+  color: #bee3f8;
+}
+
+.App.dark .explanation p {
+  color: #90cdf4;
+}
+
+.App.dark .tips-section {
+  background: linear-gradient(135deg, #805ad5 0%, #d53f8c 100%);
+}
+
+.App.dark .App-footer {
+  background: rgba(26, 32, 44, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.App.dark .App-footer p {
+  color: #a0aec0;
+}
+
+.App.dark .search-input {
+  background: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+.App.dark .search-input:focus {
+  border-color: #667eea;
+}
+
+.App.dark .search-input::placeholder {
+  color: #a0aec0;
+}
+
+.App.dark .no-results {
+  background: rgba(26, 32, 44, 0.9);
+  color: #e2e8f0;
+}
+
+.App.dark .no-results h3 {
+  color: #f7fafc;
+}
+
+.App.dark .no-results p {
+  color: #a0aec0;
+}

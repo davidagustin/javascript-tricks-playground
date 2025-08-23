@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import ArrayTricks from './components/ArrayTricks';
 import StringTricks from './components/StringTricks';
@@ -11,10 +11,8 @@ import PerformanceTricks from './components/PerformanceTricks';
 import LeetCodeTricks from './components/LeetCodeTricks';
 import AdvancedTricks from './components/AdvancedTricks';
 import FavoritesTricks from './components/FavoritesTricks';
-import { FavoritesProvider } from './contexts/FavoritesContext';
 
 type TrickCategory = 
-  | 'favorites'
   | 'arrays'
   | 'strings'
   | 'objects'
@@ -33,11 +31,6 @@ interface TrickCategoryInfo {
 }
 
 const trickCategories: Record<TrickCategory, TrickCategoryInfo> = {
-  favorites: {
-    name: '⭐ Favorites',
-    description: 'Your saved JavaScript tricks',
-    component: FavoritesTricks
-  },
   arrays: {
     name: 'Array Manipulation',
     description: 'Powerful array operations and transformations',
@@ -88,12 +81,14 @@ const trickCategories: Record<TrickCategory, TrickCategoryInfo> = {
     description: 'Complex patterns and advanced techniques',
     component: AdvancedTricks
   }
+
 };
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState<TrickCategory>('arrays');
   const [searchQuery, setSearchQuery] = useState('');
   const [darkMode, setDarkMode] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Load dark mode preference from localStorage
   useEffect(() => {
@@ -108,6 +103,32 @@ function App() {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
     document.body.classList.toggle('dark-mode', darkMode);
   }, [darkMode]);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Ctrl+K or Cmd+K: Focus search
+      if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+      }
+      
+      // Ctrl+D or Cmd+D: Toggle dark mode
+      if ((event.ctrlKey || event.metaKey) && event.key === 'd') {
+        event.preventDefault();
+        setDarkMode(!darkMode);
+      }
+      
+      // Escape: Clear search
+      if (event.key === 'Escape' && searchQuery) {
+        setSearchQuery('');
+        searchInputRef.current?.blur();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [darkMode, searchQuery]);
 
   const SelectedComponent = trickCategories[selectedCategory].component;
 
@@ -136,6 +157,7 @@ function App() {
               onClick={toggleDarkMode}
               className="theme-toggle"
               aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+              title="Toggle dark mode (Ctrl+D)"
             >
               {darkMode ? '☀️' : '🌙'}
             </button>
@@ -143,8 +165,9 @@ function App() {
           
           <div className="search-container">
             <input
+              ref={searchInputRef}
               type="text"
-              placeholder="🔍 Search tricks by name or description..."
+              placeholder="🔍 Search tricks by name or description... (Ctrl+K)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="search-input"
@@ -153,6 +176,7 @@ function App() {
               <button 
                 onClick={() => setSearchQuery('')}
                 className="clear-search-btn"
+                title="Clear search (Esc)"
               >
                 ✕
               </button>
@@ -194,6 +218,7 @@ function App() {
           <p>💡 Tip: Click on any code example to copy it to clipboard!</p>
           <p>🔍 Use the search bar to quickly find specific tricks</p>
           <p>🌙 Toggle dark mode for comfortable reading</p>
+          <p>⌨️ Keyboard shortcuts: Ctrl+K (search), Ctrl+D (dark mode), Esc (clear search)</p>
           <p>Built with React + TypeScript</p>
         </footer>
       </div>
