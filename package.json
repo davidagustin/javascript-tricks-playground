@@ -18,12 +18,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/javascript-tricks-playground.git"
+    "url": "git+https://github.com/davidagustin/javascript-tricks-playground.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/javascript-tricks-playground/issues"
+    "url": "https://github.com/davidagustin/javascript-tricks-playground/issues"
   },
-  "homepage": "https://github.com/yourusername/javascript-tricks-playground#readme",
+  "homepage": "https://github.com/davidagustin/javascript-tricks-playground#readme",
   "private": false,
   "engines": {
     "node": ">=16.0.0",

@@ -194,7 +194,7 @@ const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/javascript-tricks-playground.git
+git clone https://github.com/davidagustin/javascript-tricks-playground.git
 cd javascript-tricks-playground
 
 # Install dependencies
@@ -282,7 +282,7 @@ graph TD
 
 ### Deploy to Vercel (Recommended)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/javascript-tricks-playground)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/davidagustin/javascript-tricks-playground)
 
 #### Manual Deployment
 
@@ -298,7 +298,7 @@ vercel
 
 ### Deploy to Netlify
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/javascript-tricks-playground)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/davidagustin/javascript-tricks-playground)
 
 ### Build Configuration
 
@@ -355,7 +355,7 @@ We welcome contributions! Here's how you can help:
 
 ```bash
 # 1. Fork & clone
-git clone https://github.com/yourusername/javascript-tricks-playground.git
+git clone https://github.com/davidagustin/javascript-tricks-playground.git
 
 # 2. Create feature branch
 git checkout -b feature/amazing-trick
@@ -464,15 +464,15 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 ### 💬 **Get Help**
 
-[![GitHub Issues](https://img.shields.io/badge/GitHub-Issues-red?style=for-the-badge&logo=github)](https://github.com/yourusername/javascript-tricks-playground/issues)
-[![Discussions](https://img.shields.io/badge/GitHub-Discussions-blue?style=for-the-badge&logo=github)](https://github.com/yourusername/javascript-tricks-playground/discussions)
+[![GitHub Issues](https://img.shields.io/badge/GitHub-Issues-red?style=for-the-badge&logo=github)](https://github.com/davidagustin/javascript-tricks-playground/issues)
+[![Discussions](https://img.shields.io/badge/GitHub-Discussions-blue?style=for-the-badge&logo=github)](https://github.com/davidagustin/javascript-tricks-playground/discussions)
 
 ### 🌟 **Show Your Support**
 
 If this project helped you, please ⭐ star it on GitHub!
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/javascript-tricks-playground?style=social)](https://github.com/yourusername/javascript-tricks-playground/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/javascript-tricks-playground?style=social)](https://github.com/yourusername/javascript-tricks-playground/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/javascript-tricks-playground?style=social)](https://github.com/davidagustin/javascript-tricks-playground/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/javascript-tricks-playground?style=social)](https://github.com/davidagustin/javascript-tricks-playground/network/members)
 
 </div>
 
