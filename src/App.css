@@ -44,6 +44,28 @@ body {
   flex: 1;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.favorites-badge {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
 .theme-toggle {
   background: none;
   border: 2px solid #e1e5e9;
@@ -360,13 +382,47 @@ body {
   padding: 1.5rem;
 }
 
+.code-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
 .code-title {
   font-size: 1.3rem;
   font-weight: 600;
   color: #2d3748;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #e2e8f0;
+  margin: 0;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.favorite-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.favorite-btn.favorited {
+  opacity: 1;
+  animation: favoritePop 0.3s ease;
+}
+
+@keyframes favoritePop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
 .code-container {
@@ -383,6 +439,11 @@ body {
   padding: 0.75rem 1rem;
   background: #2d3748;
   border-bottom: 1px solid #4a5568;
+}
+
+.code-actions {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .language-tag {
@@ -760,5 +821,218 @@ body {
 }
 
 .App.dark .no-results p {
+  color: #a0aec0;
+}
+
+/* Favorites styles */
+.favorites-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.favorites-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.favorites-count {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #333;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.clear-favorites-btn {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.clear-favorites-btn:hover {
+  background: #c53030;
+}
+
+.empty-favorites {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.empty-favorites h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #2d3748;
+}
+
+.empty-favorites p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.favorites-tips {
+  text-align: left;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.favorites-tips h4 {
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.favorites-tips ul {
+  list-style: none;
+  padding: 0;
+}
+
+.favorites-tips li {
+  padding: 0.25rem 0;
+  color: #666;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.favorites-tips li:before {
+  content: '💡';
+  position: absolute;
+  left: 0;
+}
+
+.favorite-card {
+  position: relative;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.favorite-card:hover {
+  border-color: #ffd700;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+}
+
+.favorite-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #333;
+  border-radius: 8px 8px 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.favorite-category {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.remove-favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.remove-favorite-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.favorite-meta {
+  padding: 0.5rem 1rem;
+  background: #f7fafc;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.favorites-actions {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.clear-favorites-btn-large {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.clear-favorites-btn-large:hover {
+  background: #c53030;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+.favorites-indicator {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ffd700;
+  color: #333;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* Dark mode favorites styles */
+.App.dark .empty-favorites {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.App.dark .empty-favorites h3 {
+  color: #f7fafc;
+}
+
+.App.dark .empty-favorites p {
+  color: #a0aec0;
+}
+
+.App.dark .favorites-tips h4 {
+  color: #f7fafc;
+}
+
+.App.dark .favorites-tips li {
+  color: #a0aec0;
+}
+
+.App.dark .favorite-meta {
+  background: #4a5568;
+  border-top-color: #718096;
   color: #a0aec0;
 }

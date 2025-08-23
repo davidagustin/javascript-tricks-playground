@@ -55,6 +55,25 @@ const expensiveFn = memoize((n) => {
       explanation: "Stores function results in cache to avoid recalculating same inputs"
     },
     {
+      title: "Weak Memoization",
+      description: "Memory-safe memoization for objects",
+      code: `const weakMemoize = (fn) => {
+  const cache = new WeakMap();
+  return (arg) => {
+    if (cache.has(arg)) return cache.get(arg);
+    const result = fn(arg);
+    cache.set(arg, result);
+    return result;
+  };
+};
+const processObject = weakMemoize((obj) => {
+  console.log('Processing object...');
+  return Object.keys(obj).length;
+});`,
+      result: "Function returned (weak memoized version)",
+      explanation: "Uses WeakMap to allow garbage collection of cached objects"
+    },
+    {
       title: "Lazy Loading",
       description: "Load resources only when needed",
       code: `const lazyLoad = (src) => {
@@ -204,6 +223,141 @@ const heavyComponent = await loadModule('HeavyComponent');`,
 };`,
       result: "Function returned",
       explanation: "Efficiently detects when elements enter/exit viewport without scroll events"
+    },
+    {
+      title: "Object Pool Pattern",
+      description: "Reuse objects to reduce garbage collection",
+      code: `class ObjectPool {
+  constructor(factory, reset) {
+    this.factory = factory;
+    this.reset = reset;
+    this.pool = [];
+  }
+  
+  acquire() {
+    return this.pool.pop() || this.factory();
+  }
+  
+  release(obj) {
+    this.reset(obj);
+    this.pool.push(obj);
+  }
+}
+
+const pool = new ObjectPool(
+  () => ({ x: 0, y: 0, active: false }),
+  (obj) => { obj.x = 0; obj.y = 0; obj.active = false; }
+);`,
+      result: "Class defined",
+      explanation: "Reuses objects to minimize garbage collection overhead"
+    },
+    {
+      title: "Lazy Property",
+      description: "Initialize properties only when accessed",
+      code: `const lazyProperty = (obj, prop, factory) => {
+  Object.defineProperty(obj, prop, {
+    get() {
+      const value = factory();
+      Object.defineProperty(this, prop, { value });
+      return value;
+    },
+    configurable: true
+  });
+};
+
+const config = {};
+lazyProperty(config, 'expensive', () => {
+  console.log('Computing expensive value...');
+  return Math.random() * 1000;
+});`,
+      result: "Property defined",
+      explanation: "Initializes expensive properties only when first accessed"
+    },
+    {
+      title: "Chunk Processing",
+      description: "Process large arrays in chunks",
+      code: `const chunkProcess = async (items, chunkSize, processFn) => {
+  for (let i = 0; i < items.length; i += chunkSize) {
+    const chunk = items.slice(i, i + chunkSize);
+    await Promise.all(chunk.map(processFn));
+    
+    // Allow other tasks to run
+    await new Promise(resolve => setTimeout(resolve, 0));
+  }
+};
+
+const largeArray = Array.from({length: 10000}, (_, i) => i);
+chunkProcess(largeArray, 100, async (item) => {
+  // Process each item
+  await new Promise(resolve => setTimeout(resolve, 1));
+});`,
+      result: "Function returned",
+      explanation: "Processes large datasets in chunks to prevent blocking the main thread"
+    },
+    {
+      title: "Performance Budget",
+      description: "Monitor and enforce performance budgets",
+      code: `class PerformanceBudget {
+  constructor(budget) {
+    this.budget = budget;
+    this.metrics = new Map();
+  }
+  
+  start(label) {
+    this.metrics.set(label, performance.now());
+  }
+  
+  end(label) {
+    const start = this.metrics.get(label);
+    if (start) {
+      const duration = performance.now() - start;
+      const budget = this.budget[label];
+      
+      if (budget && duration > budget) {
+        console.warn(\`Performance budget exceeded for \${label}: \${duration}ms > \${budget}ms\`);
+      }
+      
+      this.metrics.delete(label);
+      return duration;
+    }
+  }
+}
+
+const budget = new PerformanceBudget({
+  'data-processing': 100,
+  'rendering': 16
+});`,
+      result: "Class defined",
+      explanation: "Monitors performance against predefined budgets"
+    },
+    {
+      title: "Request Idle Callback",
+      description: "Execute tasks during idle time",
+      code: `const idleTask = (task, timeout = 1000) => {
+  if ('requestIdleCallback' in window) {
+    return new Promise((resolve) => {
+      requestIdleCallback(() => {
+        const result = task();
+        resolve(result);
+      }, { timeout });
+    });
+  } else {
+    // Fallback for browsers without requestIdleCallback
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const result = task();
+        resolve(result);
+      }, 0);
+    });
+  }
+};
+
+idleTask(() => {
+  console.log('Running during idle time...');
+  return 'Task completed';
+});`,
+      result: "Promise {<pending>}",
+      explanation: "Executes tasks during browser idle time to avoid blocking the main thread"
     }
   ];
 
@@ -231,6 +385,10 @@ const heavyComponent = await loadModule('HeavyComponent');`,
           <li><strong>Web Workers:</strong> Move heavy computations to background threads</li>
           <li><strong>Virtual Scrolling:</strong> Essential for large lists (1000+ items)</li>
           <li><strong>Code Splitting:</strong> Reduce initial bundle size with dynamic imports</li>
+          <li><strong>Object Pooling:</strong> Reuse objects to reduce garbage collection</li>
+          <li><strong>Performance Budgets:</strong> Set and monitor performance targets</li>
+          <li><strong>Idle Callbacks:</strong> Execute non-critical tasks during idle time</li>
+          <li><strong>Weak References:</strong> Use WeakMap/WeakSet for memory-safe caching</li>
         </ul>
       </div>
     </div>

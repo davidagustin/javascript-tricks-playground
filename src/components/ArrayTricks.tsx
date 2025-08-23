@@ -100,75 +100,333 @@ const grouped = groupBy(users, 'city')`,
       title: "Chunk Array",
       description: "Split array into smaller chunks",
       code: `const chunk = (arr, size) => 
-  Array.from({length: Math.ceil(arr.length/size)}, (_, i) => 
-    arr.slice(i*size, i*size+size)
+  Array.from({length: Math.ceil(arr.length / size)}, (_, i) => 
+    arr.slice(i * size, i * size + size)
   );
-const chunks = chunk([1,2,3,4,5,6,7,8], 3)`,
+const chunks = chunk([1, 2, 3, 4, 5, 6], 2)`,
       result: (() => {
         const chunk = (arr: any[], size: number) => 
-          Array.from({length: Math.ceil(arr.length/size)}, (_, i) => 
-            arr.slice(i*size, i*size+size)
+          Array.from({length: Math.ceil(arr.length / size)}, (_, i) => 
+            arr.slice(i * size, i * size + size)
           );
-        return chunk([1,2,3,4,5,6,7,8], 3);
+        return chunk([1, 2, 3, 4, 5, 6], 2);
       })(),
-      explanation: "Array.from() creates array of calculated length, slice() extracts chunks of specified size"
-    },
-    {
-      title: "Count Occurrences",
-      description: "Count frequency of each element",
-      code: `const count = arr => arr.reduce((acc, val) => {
-  acc[val] = (acc[val] || 0) + 1;
-  return acc;
-}, {});
-const frequencies = count(['a', 'b', 'a', 'c', 'b', 'a'])`,
-      result: (() => {
-        const count = (arr: any[]) => arr.reduce((acc: any, val) => {
-          acc[val] = (acc[val] || 0) + 1;
-          return acc;
-        }, {});
-        return count(['a', 'b', 'a', 'c', 'b', 'a']);
-      })(),
-      explanation: "reduce() builds frequency object, incrementing count for each occurrence"
-    },
-    {
-      title: "Remove Falsy Values",
-      description: "Filter out falsy values (false, 0, '', null, undefined, NaN)",
-      code: "const clean = [0, 1, false, 2, '', 3, null, undefined, NaN].filter(Boolean)",
-      result: [0, 1, false, 2, '', 3, null, undefined, NaN].filter(Boolean),
-      explanation: "Boolean constructor as filter function removes all falsy values"
+      explanation: "Array.from() creates new array with calculated length, slice() extracts chunks"
     },
     {
       title: "Array Intersection",
       description: "Find common elements between arrays",
-      code: `const intersection = (a, b) => a.filter(x => b.includes(x));
-const common = intersection([1,2,3,4], [3,4,5,6])`,
+      code: `const intersection = (a, b) => 
+  a.filter(x => b.includes(x));
+const common = intersection([1, 2, 3], [2, 3, 4])`,
       result: (() => {
-        const intersection = (a: any[], b: any[]) => a.filter(x => b.includes(x));
-        return intersection([1,2,3,4], [3,4,5,6]);
+        const intersection = (a: any[], b: any[]) => 
+          a.filter(x => b.includes(x));
+        return intersection([1, 2, 3], [2, 3, 4]);
       })(),
-      explanation: "filter() keeps only elements that exist in both arrays using includes()"
+      explanation: "filter() keeps elements that exist in both arrays using includes()"
     },
     {
       title: "Array Union",
       description: "Combine arrays and remove duplicates",
-      code: "const union = [...new Set([...a, ...b])]",
+      code: `const union = (a, b) => [...new Set([...a, ...b])];
+const combined = union([1, 2, 3], [2, 3, 4])`,
       result: (() => {
-        const a = [1,2,3];
-        const b = [3,4,5];
-        return Array.from(new Set([...a, ...b]));
+        const union = (a: any[], b: any[]) => [...new Set([...a, ...b])];
+        return union([1, 2, 3], [2, 3, 4]);
       })(),
       explanation: "Spread operator combines arrays, Set removes duplicates"
     },
     {
-      title: "Rotate Array",
-      description: "Rotate array by k positions",
-      code: `const rotate = (arr, k) => [...arr.slice(-k % arr.length), ...arr.slice(0, -k % arr.length)];
-const rotated = rotate([1,2,3,4,5], 2)`,
+      title: "Array Difference",
+      description: "Find elements in first array not in second",
+      code: `const difference = (a, b) => 
+  a.filter(x => !b.includes(x));
+const diff = difference([1, 2, 3], [2, 3, 4])`,
       result: (() => {
-        const rotate = (arr: any[], k: number) => [...arr.slice(-k % arr.length), ...arr.slice(0, -k % arr.length)];
-        return rotate([1,2,3,4,5], 2);
+        const difference = (a: any[], b: any[]) => 
+          a.filter(x => !b.includes(x));
+        return difference([1, 2, 3], [2, 3, 4]);
       })(),
-      explanation: "slice(-k) gets last k elements, slice(0, -k) gets remaining elements, modulo handles overflow"
+      explanation: "filter() keeps elements that don't exist in second array"
+    },
+    {
+      title: "Rotate Array",
+      description: "Rotate array elements by specified positions",
+      code: `const rotate = (arr, k) => {
+  const n = arr.length;
+  const rotated = [...arr];
+  for (let i = 0; i < n; i++) {
+    rotated[(i + k) % n] = arr[i];
+  }
+  return rotated;
+};
+const rotated = rotate([1, 2, 3, 4, 5], 2)`,
+      result: (() => {
+        const rotate = (arr: any[], k: number) => {
+          const n = arr.length;
+          const rotated = [...arr];
+          for (let i = 0; i < n; i++) {
+            rotated[(i + k) % n] = arr[i];
+          }
+          return rotated;
+        };
+        return rotate([1, 2, 3, 4, 5], 2);
+      })(),
+      explanation: "Modulo operator (%) handles wrapping around array boundaries"
+    },
+    {
+      title: "Count Occurrences",
+      description: "Count frequency of each element",
+      code: `const countOccurrences = (arr) => 
+  arr.reduce((acc, val) => {
+    acc[val] = (acc[val] || 0) + 1;
+    return acc;
+  }, {});
+const counts = countOccurrences(['a', 'b', 'a', 'c', 'b'])`,
+      result: (() => {
+        const countOccurrences = (arr: any[]) => 
+          arr.reduce((acc: any, val: any) => {
+            acc[val] = (acc[val] || 0) + 1;
+            return acc;
+          }, {});
+        return countOccurrences(['a', 'b', 'a', 'c', 'b']);
+      })(),
+      explanation: "reduce() builds object with element counts, || 0 provides default value"
+    },
+    {
+      title: "Find All Indices",
+      description: "Find all positions of an element",
+      code: `const findAllIndices = (arr, target) => 
+  arr.reduce((acc, val, i) => {
+    if (val === target) acc.push(i);
+    return acc;
+  }, []);
+const indices = findAllIndices([1, 2, 3, 2, 4, 2], 2)`,
+      result: (() => {
+        const findAllIndices = (arr: any[], target: any) => 
+          arr.reduce((acc: number[], val: any, i: number) => {
+            if (val === target) acc.push(i);
+            return acc;
+          }, []);
+        return findAllIndices([1, 2, 3, 2, 4, 2], 2);
+      })(),
+      explanation: "reduce() with index parameter builds array of matching indices"
+    },
+    {
+      title: "Array Partition",
+      description: "Split array based on condition",
+      code: `const partition = (arr, fn) => 
+  arr.reduce((acc, val) => {
+    acc[fn(val) ? 0 : 1].push(val);
+    return acc;
+  }, [[], []]);
+const [evens, odds] = partition([1, 2, 3, 4, 5], x => x % 2 === 0)`,
+      result: (() => {
+        const partition = (arr: any[], fn: (val: any) => boolean) => 
+          arr.reduce((acc: any[][], val: any) => {
+            acc[fn(val) ? 0 : 1].push(val);
+            return acc;
+          }, [[], []]);
+        return partition([1, 2, 3, 4, 5], (x: number) => x % 2 === 0);
+      })(),
+      explanation: "reduce() creates two arrays: one for true conditions, one for false"
+    },
+    {
+      title: "Zip Arrays",
+      description: "Combine arrays element by element",
+      code: `const zip = (...arrays) => 
+  Array.from({length: Math.max(...arrays.map(a => a.length))}, (_, i) => 
+    arrays.map(arr => arr[i])
+  );
+const zipped = zip([1, 2, 3], ['a', 'b', 'c'], [true, false, true])`,
+      result: (() => {
+        const zip = (...arrays: any[][]) => 
+          Array.from({length: Math.max(...arrays.map(a => a.length))}, (_, i) => 
+            arrays.map(arr => arr[i])
+          );
+        return zip([1, 2, 3], ['a', 'b', 'c'], [true, false, true]);
+      })(),
+      explanation: "Array.from() creates array of tuples, Math.max() finds longest array length"
+    },
+    {
+      title: "Cartesian Product",
+      description: "Generate all combinations of arrays",
+      code: `const cartesian = (...arrays) => 
+  arrays.reduce((acc, arr) => 
+    acc.flatMap(x => arr.map(y => [...x, y])), 
+    [[]]
+  );
+const product = cartesian([1, 2], ['a', 'b'])`,
+      result: (() => {
+        const cartesian = (...arrays: any[][]) => 
+          arrays.reduce((acc: any[][], arr: any[]) => 
+            acc.flatMap(x => arr.map(y => [...x, y])), 
+            [[]]
+          );
+        return cartesian([1, 2], ['a', 'b']);
+      })(),
+      explanation: "reduce() with flatMap() generates all possible combinations"
+    },
+    {
+      title: "Run-Length Encoding",
+      description: "Compress array by counting consecutive elements",
+      code: `const runLengthEncode = (arr) => 
+  arr.reduce((acc, val) => {
+    const last = acc[acc.length - 1];
+    if (last && last[0] === val) {
+      last[1]++;
+    } else {
+      acc.push([val, 1]);
+    }
+    return acc;
+  }, []);
+const encoded = runLengthEncode(['a', 'a', 'b', 'b', 'b', 'c'])`,
+      result: (() => {
+        const runLengthEncode = (arr: any[]) => 
+          arr.reduce((acc: any[][], val: any) => {
+            const last = acc[acc.length - 1];
+            if (last && last[0] === val) {
+              last[1]++;
+            } else {
+              acc.push([val, 1]);
+            }
+            return acc;
+          }, []);
+        return runLengthEncode(['a', 'a', 'b', 'b', 'b', 'c']);
+      })(),
+      explanation: "reduce() groups consecutive identical elements with their counts"
+    },
+    {
+      title: "Array Permutations",
+      description: "Generate all possible arrangements",
+      code: `const permutations = (arr) => {
+  if (arr.length <= 1) return [arr];
+  return arr.flatMap((val, i) => 
+    permutations([...arr.slice(0, i), ...arr.slice(i + 1)])
+      .map(perm => [val, ...perm])
+  );
+};
+const perms = permutations([1, 2, 3])`,
+      result: (() => {
+        const permutations = (arr: any[]): any[][] => {
+          if (arr.length <= 1) return [arr];
+          return arr.flatMap((val, i) => 
+            permutations([...arr.slice(0, i), ...arr.slice(i + 1)])
+              .map(perm => [val, ...perm])
+          );
+        };
+        return permutations([1, 2, 3]);
+      })(),
+      explanation: "Recursive function generates all possible arrangements using flatMap()"
+    },
+    {
+      title: "Array Combinations",
+      description: "Generate combinations of specified size",
+      code: `const combinations = (arr, k) => {
+  if (k === 0) return [[]];
+  if (k > arr.length) return [];
+  return arr.flatMap((val, i) => 
+    combinations(arr.slice(i + 1), k - 1)
+      .map(combo => [val, ...combo])
+  );
+};
+const combos = combinations([1, 2, 3, 4], 2)`,
+      result: (() => {
+        const combinations = (arr: any[], k: number): any[][] => {
+          if (k === 0) return [[]];
+          if (k > arr.length) return [];
+          return arr.flatMap((val, i) => 
+            combinations(arr.slice(i + 1), k - 1)
+              .map(combo => [val, ...combo])
+          );
+        };
+        return combinations([1, 2, 3, 4], 2);
+      })(),
+      explanation: "Recursive function generates combinations of specified size"
+    },
+    {
+      title: "Array Intersection with Count",
+      description: "Find common elements with frequency tracking",
+      code: `const intersectionWithCount = (a, b) => {
+  const countB = b.reduce((acc, val) => {
+    acc[val] = (acc[val] || 0) + 1;
+    return acc;
+  }, {});
+  
+  return a.filter(val => {
+    if (countB[val]) {
+      countB[val]--;
+      return true;
+    }
+    return false;
+  });
+};
+const common = intersectionWithCount([1, 2, 2, 3], [2, 2, 3, 4])`,
+      result: (() => {
+        const intersectionWithCount = (a: any[], b: any[]) => {
+          const countB = b.reduce((acc: any, val: any) => {
+            acc[val] = (acc[val] || 0) + 1;
+            return acc;
+          }, {});
+          
+          return a.filter(val => {
+            if (countB[val]) {
+              countB[val]--;
+              return true;
+            }
+            return false;
+          });
+        };
+        return intersectionWithCount([1, 2, 2, 3], [2, 2, 3, 4]);
+      })(),
+      explanation: "Counts elements in second array, then filters first array based on available counts"
+    },
+    {
+      title: "Array Sliding Window",
+      description: "Process array with sliding window",
+      code: `const slidingWindow = (arr, size) => 
+  Array.from({length: arr.length - size + 1}, (_, i) => 
+    arr.slice(i, i + size)
+  );
+const windows = slidingWindow([1, 2, 3, 4, 5], 3)`,
+      result: (() => {
+        const slidingWindow = (arr: any[], size: number) => 
+          Array.from({length: arr.length - size + 1}, (_, i) => 
+            arr.slice(i, i + size)
+          );
+        return slidingWindow([1, 2, 3, 4, 5], 3);
+      })(),
+      explanation: "Array.from() creates windows of specified size, slice() extracts each window"
+    },
+    {
+      title: "Array Reservoir Sampling",
+      description: "Randomly sample k elements from array",
+      code: `const reservoirSample = (arr, k) => {
+  const sample = arr.slice(0, k);
+  for (let i = k; i < arr.length; i++) {
+    const j = Math.floor(Math.random() * (i + 1));
+    if (j < k) {
+      sample[j] = arr[i];
+    }
+  }
+  return sample;
+};
+const sample = reservoirSample([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3)`,
+      result: (() => {
+        const reservoirSample = (arr: any[], k: number) => {
+          const sample = arr.slice(0, k);
+          for (let i = k; i < arr.length; i++) {
+            const j = Math.floor(Math.random() * (i + 1));
+            if (j < k) {
+              sample[j] = arr[i];
+            }
+          }
+          return sample;
+        };
+        return reservoirSample([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3);
+      })(),
+      explanation: "Reservoir sampling algorithm for unbiased random sampling of k elements"
     }
   ];
 

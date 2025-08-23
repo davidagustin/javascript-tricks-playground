@@ -8,10 +8,16 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   title, 
   result, 
   explanation,
-  category = 'general'
+  category = 'general',
+  isFavorite: propIsFavorite,
+  onToggleFavorite
 }) => {
   const [copied, setCopied] = useState(false);
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  
+  // Generate a unique ID for this trick
+  const trickId = `${category}-${title?.toLowerCase().replace(/\s+/g, '-')}`;
+  const isFavorited = propIsFavorite !== undefined ? propIsFavorite : isFavorite(trickId);
 
   const copyToClipboard = async () => {
     try {
@@ -37,35 +43,46 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 
   const actualResult = result !== undefined ? result : executeCode();
 
-  const handleFavoriteToggle = () => {
-    const trick = { category, title: title || 'Untitled', code };
-    if (isFavorite(trick)) {
-      removeFavorite(trick);
+  const handleToggleFavorite = () => {
+    if (onToggleFavorite) {
+      onToggleFavorite();
     } else {
-      addFavorite(trick);
+      if (isFavorited) {
+        removeFavorite(trickId);
+      } else {
+        addFavorite({
+          id: trickId,
+          title: title || 'Untitled Trick',
+          category,
+          code
+        });
+      }
     }
   };
 
-  const isFavorited = isFavorite({ category, title: title || 'Untitled', code });
-
   return (
     <div className="code-block">
-      {title && <h4 className="code-title">{title}</h4>}
+      {title && (
+        <div className="code-title-container">
+          <h4 className="code-title">{title}</h4>
+          <button
+            onClick={handleToggleFavorite}
+            className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
+            title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+          >
+            {isFavorited ? '⭐' : '☆'}
+          </button>
+        </div>
+      )}
       
       <div className="code-container">
         <div className="code-header">
           <span className="language-tag">{language}</span>
           <div className="code-actions">
             <button 
-              className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
-              onClick={handleFavoriteToggle}
-              title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-            >
-              {isFavorited ? '⭐' : '☆'}
-            </button>
-            <button 
               className={`copy-btn ${copied ? 'copied' : ''}`}
               onClick={copyToClipboard}
+              title="Copy code to clipboard"
             >
               {copied ? '✓ Copied!' : '📋 Copy'}
             </button>

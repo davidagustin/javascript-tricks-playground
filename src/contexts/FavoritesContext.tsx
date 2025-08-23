@@ -1,17 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-interface FavoriteTrick {
-  category: string;
-  title: string;
-  code: string;
-}
+import { FavoriteTrick } from '../types/tricks';
 
 interface FavoritesContextType {
   favorites: FavoriteTrick[];
-  addFavorite: (trick: FavoriteTrick) => void;
-  removeFavorite: (trick: FavoriteTrick) => void;
-  isFavorite: (trick: FavoriteTrick) => boolean;
+  addFavorite: (trick: Omit<FavoriteTrick, 'addedAt'>) => void;
+  removeFavorite: (id: string) => void;
+  isFavorite: (id: string) => boolean;
   clearFavorites: () => void;
+  favoritesCount: number;
 }
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
@@ -33,51 +29,36 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }
 
   // Load favorites from localStorage on mount
   useEffect(() => {
-    const savedFavorites = localStorage.getItem('js-tricks-favorites');
+    const savedFavorites = localStorage.getItem('favorites');
     if (savedFavorites) {
       try {
         setFavorites(JSON.parse(savedFavorites));
       } catch (error) {
         console.error('Error loading favorites:', error);
+        localStorage.removeItem('favorites');
       }
     }
   }, []);
 
   // Save favorites to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('js-tricks-favorites', JSON.stringify(favorites));
+    localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
 
-  const addFavorite = (trick: FavoriteTrick) => {
-    setFavorites(prev => {
-      const exists = prev.some(fav => 
-        fav.category === trick.category && 
-        fav.title === trick.title && 
-        fav.code === trick.code
-      );
-      if (!exists) {
-        return [...prev, trick];
-      }
-      return prev;
-    });
+  const addFavorite = (trick: Omit<FavoriteTrick, 'addedAt'>) => {
+    const newFavorite: FavoriteTrick = {
+      ...trick,
+      addedAt: Date.now(),
+    };
+    setFavorites(prev => [...prev, newFavorite]);
   };
 
-  const removeFavorite = (trick: FavoriteTrick) => {
-    setFavorites(prev => 
-      prev.filter(fav => 
-        !(fav.category === trick.category && 
-          fav.title === trick.title && 
-          fav.code === trick.code)
-      )
-    );
+  const removeFavorite = (id: string) => {
+    setFavorites(prev => prev.filter(fav => fav.id !== id));
   };
 
-  const isFavorite = (trick: FavoriteTrick) => {
-    return favorites.some(fav => 
-      fav.category === trick.category && 
-      fav.title === trick.title && 
-      fav.code === trick.code
-    );
+  const isFavorite = (id: string) => {
+    return favorites.some(fav => fav.id === id);
   };
 
   const clearFavorites = () => {
@@ -89,7 +70,8 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }
     addFavorite,
     removeFavorite,
     isFavorite,
-    clearFavorites
+    clearFavorites,
+    favoritesCount: favorites.length,
   };
 
   return (
