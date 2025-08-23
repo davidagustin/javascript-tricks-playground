@@ -38,6 +38,7 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
+    "ajv": "^8.17.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-scripts": "5.0.1",
@@ -53,8 +54,7 @@
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "type-check": "tsc --noEmit",
-    "serve": "serve -s build",
-    "prepare": "npm run build"
+    "serve": "serve -s build"
   },
   "eslintConfig": {
     "extends": [
