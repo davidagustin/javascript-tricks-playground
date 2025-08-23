@@ -284,6 +284,21 @@ graph TD
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/davidagustin/javascript-tricks-playground)
 
+#### ✅ Vercel Compatibility Checklist
+
+This project is fully optimized for Vercel deployment:
+
+- ✅ **Node.js Version**: `>=16.0.0` (Vercel supports Node.js 18+)
+- ✅ **Build Command**: `npm run build` (standard React Scripts)
+- ✅ **Output Directory**: `build/` (configured in `vercel.json`)
+- ✅ **Static Assets**: Proper caching headers configured
+- ✅ **SPA Routing**: Client-side navigation with fallback to `index.html`
+- ✅ **TypeScript**: ES2017 target with strict mode enabled
+- ✅ **ESLint**: All warnings resolved (CI-safe)
+- ✅ **Dependencies**: All compatible with Vercel's environment
+- ✅ **Homepage**: Relative paths (`"."`) for proper asset loading
+- ✅ **Performance**: Code splitting and compression enabled
+
 #### Manual Deployment
 
 ```bash
@@ -294,6 +309,35 @@ npm i -g vercel
 vercel
 
 # Or connect GitHub repo at vercel.com
+```
+
+#### Vercel Configuration
+
+The `vercel.json` file includes:
+
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "build" }
+    }
+  ],
+  "rewrites": [
+    { "source": "/static/(.*)", "destination": "/static/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/static/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}
 ```
 
 ### Deploy to Netlify
@@ -309,6 +353,37 @@ The project includes optimized configuration:
 - ✅ **Static Assets**: Proper caching headers
 - ✅ **SPA Routing**: Client-side navigation support
 - ✅ **Performance**: Code splitting & compression
+
+### Troubleshooting
+
+#### Common Vercel Deployment Issues
+
+**Build Fails with ESLint Errors**
+```bash
+# The project is configured to treat warnings as errors in CI
+# All ESLint issues have been resolved, but if you encounter new ones:
+npm run lint:fix
+```
+
+**Asset Loading Issues**
+```bash
+# Ensure homepage is set to "." in package.json
+# This ensures relative paths work correctly on Vercel
+```
+
+**Node.js Version Issues**
+```bash
+# Vercel automatically uses Node.js 18+ which meets our requirements
+# If you need a specific version, add to package.json:
+"engines": { "node": "18.x" }
+```
+
+**Dependency Conflicts**
+```bash
+# The project includes .npmrc to handle legacy peer deps
+# If you encounter issues, try:
+npm install --legacy-peer-deps
+```
 
 ---
 
