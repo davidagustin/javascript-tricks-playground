@@ -1,0 +1,77 @@
+{
+  "name": "javascript-tricks-playground",
+  "version": "1.0.0",
+  "description": "A comprehensive, interactive React TypeScript tutorial showcasing powerful JavaScript tricks, one-liners, and advanced patterns",
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "tricks",
+    "one-liners",
+    "tutorial",
+    "playground",
+    "learning",
+    "programming",
+    "algorithms"
+  ],
+  "author": "JavaScript Tricks Playground Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/javascript-tricks-playground.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/javascript-tricks-playground/issues"
+  },
+  "homepage": "https://github.com/yourusername/javascript-tricks-playground#readme",
+  "private": false,
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "dependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.126",
+    "@types/react": "^19.1.11",
+    "@types/react-dom": "^19.1.7",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "serve": "serve -s build",
+    "prepare": "npm run build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
