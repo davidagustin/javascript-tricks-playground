@@ -125,8 +125,7 @@ function App() {
   };
 
   return (
-    <FavoritesProvider>
-      <div className={`App ${darkMode ? 'dark' : ''}`}>
+    <div className={`App ${darkMode ? 'dark' : ''}`}>
         <header className="App-header">
           <div className="header-content">
             <div className="header-left">
@@ -198,7 +197,6 @@ function App() {
           <p>Built with React + TypeScript</p>
         </footer>
       </div>
-    </FavoritesProvider>
   );
 }
 

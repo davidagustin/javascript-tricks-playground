@@ -1,562 +1,144 @@
-# 🚀 JavaScript Tricks & One-Liners Playground
+# 🚀 JavaScript Tricks & One-Liners Tutorial
 
-<div align="center">
-
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
-
-*A comprehensive, interactive React TypeScript tutorial showcasing powerful JavaScript tricks, one-liners, and advanced patterns.*
-
-[**🎮 Live Demo**](https://your-demo-url.vercel.app) | [**📖 Documentation**](#documentation) | [**🤝 Contributing**](#contributing)
-
-</div>
-
----
+A comprehensive interactive tutorial showcasing powerful JavaScript tricks, one-liners, and advanced patterns. Built with React and TypeScript.
 
 ## ✨ Features
 
-<table>
-<tr>
-<td width="50%">
+### 🎯 **10 Comprehensive Categories**
+- **⭐ Favorites** - Save and manage your favorite tricks
+- **🔢 Array Manipulation** - Powerful array operations and transformations
+- **📝 String Processing** - String manipulation and formatting tricks
+- **📦 Object Operations** - Object manipulation and utility functions
+- **🔢 Number Operations** - Mathematical operations and number formatting
+- **⚡ Functional Programming** - Higher-order functions and functional patterns
+- **🔄 Async Operations** - Promise tricks and async patterns
+- **🌐 DOM Manipulation** - Browser DOM tricks and utilities
+- **⚡ Performance & Debugging** - Performance optimization and debugging tricks
+- **🏆 LeetCode Style** - Competitive programming and algorithm tricks
+- **🚀 Advanced Patterns** - Complex patterns and advanced techniques
 
-### 🎯 **Interactive Learning**
-- 📋 **One-Click Copy** - Copy any code snippet instantly
-- 🖥️ **Live Results** - See output in real-time
-- 💡 **Detailed Explanations** - Understand how each trick works
-- 📱 **Responsive Design** - Perfect on all devices
+### 🔍 **Smart Search**
+- Search across all trick categories by name or description
+- Real-time filtering with instant results
+- Clear search functionality
 
-</td>
-<td width="50%">
+### ⭐ **Favorites System**
+- Add tricks to your personal favorites
+- Persistent storage using localStorage
+- Quick access to your most-used tricks
+- Remove individual favorites or clear all at once
 
-### 🛠️ **Modern Tech Stack**
-- ⚛️ **React 19** - Latest React with hooks
-- 🔷 **TypeScript** - Full type safety
-- 🎨 **Modern CSS** - Beautiful gradients & animations
-- 🚀 **Vercel Ready** - Optimized for deployment
+### 📋 **Interactive Code Examples**
+- Click-to-copy functionality for all code snippets
+- Live execution and result display
+- Detailed explanations for each trick
+- Syntax highlighting
 
-</td>
-</tr>
-</table>
+### 🎨 **Modern UI/UX**
+- Beautiful gradient design
+- Responsive grid layout
+- Smooth animations and transitions
+- Category-based navigation
 
----
+## 🛠️ Built With
 
-## 📚 Categories & Tricks
+- **React 18** - Modern React with hooks
+- **TypeScript** - Type-safe JavaScript
+- **CSS3** - Custom styling with gradients and animations
+- **LocalStorage** - Persistent favorites storage
 
-<details>
-<summary><strong>🔢 Array Manipulation (16+ tricks)</strong></summary>
-
-```javascript
-// Remove duplicates with Set
-const unique = [...new Set([1, 2, 2, 3, 4, 4])] // [1, 2, 3, 4]
-
-// Flatten nested arrays
-const flat = [1, [2, 3, [4, 5]]].flat(Infinity) // [1, 2, 3, 4, 5]
-
-// Get random element
-const random = arr[~~(Math.random() * arr.length)]
-
-// Group by property
-const groupBy = (arr, key) => arr.reduce((acc, obj) => (
-  (acc[obj[key]] = acc[obj[key]] || []).push(obj), acc
-), {})
-```
-
-**More tricks**: Sum arrays, chunk arrays, array intersection, rotate arrays, and more!
-
-</details>
-
-<details>
-<summary><strong>📝 String Processing (18+ tricks)</strong></summary>
-
-```javascript
-// Reverse string
-const reversed = [...'hello'].reverse().join('') // 'olleh'
-
-// Title case
-const titleCase = str => str.replace(/\b\w/g, l => l.toUpperCase())
-
-// Generate slug
-const slugify = str => str.toLowerCase().trim()
-  .replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-')
-
-// Check palindrome
-const isPalindrome = str => str === str.split('').reverse().join('')
-```
-
-**More tricks**: Anagram detection, phone formatting, character counting, string masking, and more!
-
-</details>
-
-<details>
-<summary><strong>📦 Object Operations (16+ tricks)</strong></summary>
-
-```javascript
-// Swap variables
-[a, b] = [b, a]
-
-// Deep merge objects
-const deepMerge = (a, b) => Object.keys({...a, ...b}).reduce((acc, key) => ({
-  ...acc, [key]: a[key]?.constructor === Object && b[key]?.constructor === Object 
-    ? deepMerge(a[key], b[key]) : b[key] ?? a[key]
-}), {})
-
-// Safe property access
-const get = (obj, path, def) => path.split('.').reduce((o, p) => o?.[p], obj) ?? def
-```
-
-**More tricks**: Object flattening, pick/omit properties, invert objects, and more!
-
-</details>
-
-<details>
-<summary><strong>🔢 Number & Math Operations</strong></summary>
-
-```javascript
-// Round to decimal places
-const rounded = Math.round(num * 100) / 100
-
-// Random in range
-const randomInRange = (min, max) => Math.random() * (max - min) + min
-
-// Format currency
-const money = n => new Intl.NumberFormat('en-US', {
-  style: 'currency', currency: 'USD'
-}).format(n)
-```
-
-</details>
-
-<details>
-<summary><strong>⚡ Functional Programming</strong></summary>
-
-```javascript
-// Pipe functions
-const pipe = (...fns) => x => fns.reduce((v, f) => f(v), x)
-
-// Memoization
-const memo = fn => (cache => x => cache[x] ??= fn(x))({})
-
-// Currying
-const curry = fn => (...args) => args.length >= fn.length 
-  ? fn(...args) : curry(fn.bind(null, ...args))
-```
-
-</details>
-
-<details>
-<summary><strong>🏆 LeetCode & Algorithm Tricks</strong></summary>
-
-```javascript
-// Two-pointer technique
-const twoSum = (arr, target) => {
-  let l = 0, r = arr.length - 1
-  while (l < r) arr[l] + arr[r] === target ? [l, r] : arr[l] + arr[r] < target ? l++ : r--
-}
-
-// Sliding window
-const maxSum = (arr, k) => Math.max(...arr.slice(0, -k + 1)
-  .map((_, i) => arr.slice(i, i + k).reduce((a, b) => a + b)))
-
-// Binary search
-const binarySearch = (arr, target) => /* implementation */
-```
-
-</details>
-
-<details>
-<summary><strong>🌐 DOM & Browser Tricks</strong></summary>
-
-```javascript
-// Query selector shortcuts
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
-
-// Copy to clipboard
-navigator.clipboard.writeText(text)
-
-// Detect mobile
-const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-```
-
-</details>
-
----
-
-## 🚀 Quick Start
+## 🚀 Getting Started
 
 ### Prerequisites
-- **Node.js** 16+ 
-- **npm** or **yarn**
+- Node.js (v14 or higher)
+- npm or yarn
 
 ### Installation
 
+1. Clone the repository:
 ```bash
-# Clone the repository
-git clone https://github.com/davidagustin/javascript-tricks-playground.git
+git clone <repository-url>
 cd javascript-tricks-playground
+```
 
-# Install dependencies
+2. Install dependencies:
+```bash
 npm install
+```
 
-# Start development server
+3. Start the development server:
+```bash
 npm start
-
-# Build for production
-npm run build
 ```
 
-### Available Scripts
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-| Command | Description |
-|---------|-------------|
-| `npm start` | Start development server at `http://localhost:3000` |
-| `npm run build` | Create production build in `build/` folder |
-| `npm test` | Run test suite |
-| `npm run eject` | Eject from Create React App (⚠️ one-way operation) |
+## 📚 What You'll Learn
 
----
+### Array Manipulation
+- Remove duplicates, flatten arrays, shuffle elements
+- Group by properties, chunk arrays, count occurrences
+- Array intersection, union, rotation techniques
 
-## 🎯 How to Use
+### String Processing
+- Reverse strings, check palindromes, anagrams
+- Title case, slugify, mask sensitive data
+- Extract numbers, format phone numbers
 
-<table>
-<tr>
-<td width="33%">
+### Object Operations
+- Deep cloning, merging, flattening objects
+- Pick/omit properties, invert objects
+- Safe property access, group by properties
 
-### 1️⃣ **Browse Categories**
-Click any category to explore different JavaScript tricks organized by topic.
+### Performance & Debugging
+- Debouncing, throttling, memoization
+- Virtual scrolling, lazy loading
+- Memory leak prevention, chunk processing
 
-</td>
-<td width="33%">
+### LeetCode Style Algorithms
+- Two pointers, sliding window, binary search
+- DFS/BFS, dynamic programming, backtracking
+- Union find, trie, monotonic stack
 
-### 2️⃣ **Study Examples**
-Each trick includes:
-- Working code example
-- Live result output  
-- Detailed explanation
-- Performance notes
+### Advanced Patterns
+- Currying, composition, partial application
+- Generators, iterators, decorators
+- Proxy, Reflect API, Symbol properties
 
-</td>
-<td width="33%">
+## 💡 Usage Tips
 
-### 3️⃣ **Practice & Apply**
-- Copy code snippets
-- Experiment with variations
-- Use in your projects
-- Build your own tricks
+1. **Browse Categories**: Click on category cards to explore different types of tricks
+2. **Search**: Use the search bar to quickly find specific tricks
+3. **Favorite**: Click the star (☆) button to add tricks to your favorites
+4. **Copy Code**: Click the copy button to copy code snippets to clipboard
+5. **Learn**: Read explanations to understand how each trick works
 
-</td>
-</tr>
-</table>
+## 🎯 Perfect For
 
----
-
-## 📈 Learning Path
-
-```mermaid
-graph TD
-    A[🚀 Start Here] --> B[🔢 Arrays & Strings]
-    B --> C[📦 Objects & Numbers]
-    C --> D[⚡ Functional Programming]
-    D --> E[🏆 Algorithms & Performance]
-    E --> F[🚀 Advanced Patterns]
-    
-    B --> G[💡 Practice Projects]
-    C --> G
-    D --> G
-    E --> G
-    F --> G
-```
-
-| Level | Topics | Skills Gained |
-|-------|--------|---------------|
-| **🟢 Beginner** | Arrays, Strings, Basic Objects | Data manipulation fundamentals |
-| **🟡 Intermediate** | Advanced Objects, Numbers, DOM | Complex data structures & browser APIs |
-| **🟠 Advanced** | Functional Programming, Async | Higher-order thinking, performance |
-| **🔴 Expert** | Algorithms, Advanced Patterns | Competitive programming, optimization |
-
----
-
-## 🚀 Deployment
-
-### Deploy to Vercel (Recommended)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/davidagustin/javascript-tricks-playground)
-
-#### ✅ Vercel Compatibility Checklist
-
-This project is fully optimized for Vercel deployment:
-
-- ✅ **Node.js Version**: `>=16.0.0` (Vercel supports Node.js 18+)
-- ✅ **Build Command**: `npm run build` (standard React Scripts)
-- ✅ **Output Directory**: `build/` (configured in `vercel.json`)
-- ✅ **Static Assets**: Proper caching headers configured
-- ✅ **SPA Routing**: Client-side navigation with fallback to `index.html`
-- ✅ **TypeScript**: ES2017 target with strict mode enabled
-- ✅ **ESLint**: All warnings resolved (CI-safe)
-- ✅ **Dependencies**: All compatible with Vercel's environment
-- ✅ **Homepage**: Relative paths (`"."`) for proper asset loading
-- ✅ **Performance**: Code splitting and compression enabled
-
-#### Manual Deployment
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel
-
-# Or connect GitHub repo at vercel.com
-```
-
-#### Vercel Configuration
-
-The `vercel.json` file includes:
-
-```json
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "build" }
-    }
-  ],
-  "rewrites": [
-    { "source": "/static/(.*)", "destination": "/static/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "headers": [
-    {
-      "source": "/static/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    }
-  ]
-}
-```
-
-### Deploy to Netlify
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/davidagustin/javascript-tricks-playground)
-
-### Build Configuration
-
-The project includes optimized configuration:
-
-- ✅ **TypeScript**: ES2017 target with strict mode
-- ✅ **Build Output**: Optimized `build/` directory  
-- ✅ **Static Assets**: Proper caching headers
-- ✅ **SPA Routing**: Client-side navigation support
-- ✅ **Performance**: Code splitting & compression
-
-### Troubleshooting
-
-#### Common Vercel Deployment Issues
-
-**Build Fails with ESLint Errors**
-```bash
-# The project is configured to treat warnings as errors in CI
-# All ESLint issues have been resolved, but if you encounter new ones:
-npm run lint:fix
-```
-
-**Asset Loading Issues**
-```bash
-# Ensure homepage is set to "." in package.json
-# This ensures relative paths work correctly on Vercel
-```
-
-**Node.js Version Issues**
-```bash
-# Vercel automatically uses Node.js 18+ which meets our requirements
-# If you need a specific version, add to package.json:
-"engines": { "node": "18.x" }
-```
-
-**Dependency Conflicts**
-```bash
-# The project includes .npmrc to handle legacy peer deps
-# If you encounter issues, try:
-npm install --legacy-peer-deps
-```
-
----
+- **JavaScript Developers** - Expand your toolkit with powerful one-liners
+- **Interview Preparation** - Master common coding patterns and techniques
+- **Code Review** - Discover more elegant ways to write JavaScript
+- **Learning** - Understand advanced JavaScript concepts through practical examples
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+Contributions are welcome! Feel free to:
 
-<table>
-<tr>
-<td width="50%">
-
-### 🆕 **Add New Tricks**
-- Submit JavaScript one-liners
-- Include working examples
-- Add clear explanations
-- Follow existing patterns
-
-### 🐛 **Fix Issues**
-- Report bugs via GitHub Issues
-- Submit pull requests
-- Improve documentation
-- Enhance performance
-
-</td>
-<td width="50%">
-
-### 🎨 **Improve UI/UX**
-- Enhance visual design
-- Improve mobile experience
-- Add animations
-- Optimize accessibility
-
-### 📖 **Documentation**
-- Clarify explanations
-- Add more examples
-- Improve README
-- Create tutorials
-
-</td>
-</tr>
-</table>
-
-### Development Workflow
-
-```bash
-# 1. Fork & clone
-git clone https://github.com/davidagustin/javascript-tricks-playground.git
-
-# 2. Create feature branch
-git checkout -b feature/amazing-trick
-
-# 3. Make changes & test
-npm test
-npm run build
-
-# 4. Commit with conventional commits
-git commit -m "feat: add amazing array trick"
-
-# 5. Push & create PR
-git push origin feature/amazing-trick
-```
-
----
-
-## 📊 Performance
-
-<div align="center">
-
-| Metric | Value | Status |
-|--------|-------|--------|
-| **Bundle Size** | ~67KB gzipped | ✅ Optimized |
-| **CSS Size** | ~1.7KB gzipped | ✅ Minimal |
-| **Load Time** | <2s on 3G | ✅ Fast |
-| **Lighthouse Score** | 95+ | ✅ Excellent |
-
-</div>
-
-### Build Optimizations
-
-- 🔄 **Code Splitting**: Automatic chunk optimization
-- 🗜️ **Compression**: Gzip + Brotli support
-- 🌍 **CDN**: Global content delivery
-- ⚡ **Caching**: 1-year static asset cache
-- 📱 **Mobile**: Responsive design patterns
-
----
-
-## 🛡️ Browser Support
-
-| Browser | Version | Support |
-|---------|---------|---------|
-| **Chrome** | 90+ | ✅ Full |
-| **Firefox** | 88+ | ✅ Full |
-| **Safari** | 14+ | ✅ Full |
-| **Edge** | 90+ | ✅ Full |
-
-### JavaScript Features Used
-
-- ✅ ES2017+ syntax
-- ✅ Optional chaining (`?.`)
-- ✅ Nullish coalescing (`??`)
-- ✅ Modern array methods
-- ✅ Async/await patterns
-
----
+1. Add new JavaScript tricks and patterns
+2. Improve existing examples
+3. Enhance the UI/UX
+4. Fix bugs or add features
 
 ## 📄 License
 
-```
-MIT License
-
-Copyright (c) 2024 JavaScript Tricks Playground
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-```
-
----
+This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-<div align="center">
-
-**Built with ❤️ using**
-
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat-square&logo=react&logoColor=%2361DAFB)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat-square&logo=typescript&logoColor=white)
-![Create React App](https://img.shields.io/badge/Create_React_App-09D3AC?style=flat-square&logo=createreactapp&logoColor=white)
-
-</div>
-
-- 🌟 Inspired by the amazing JavaScript community
-- 🎨 UI patterns from modern web design trends  
-- 📚 Tricks collected from various programming resources
-- 🚀 Optimized for modern development workflows
+- Inspired by the JavaScript community's love for elegant one-liners
+- Built with modern React patterns and best practices
+- Designed for optimal learning and developer experience
 
 ---
 
-## 📞 Support & Community
-
-<div align="center">
-
-### 💬 **Get Help**
-
-[![GitHub Issues](https://img.shields.io/badge/GitHub-Issues-red?style=for-the-badge&logo=github)](https://github.com/davidagustin/javascript-tricks-playground/issues)
-[![Discussions](https://img.shields.io/badge/GitHub-Discussions-blue?style=for-the-badge&logo=github)](https://github.com/davidagustin/javascript-tricks-playground/discussions)
-
-### 🌟 **Show Your Support**
-
-If this project helped you, please ⭐ star it on GitHub!
-
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/javascript-tricks-playground?style=social)](https://github.com/davidagustin/javascript-tricks-playground/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/javascript-tricks-playground?style=social)](https://github.com/davidagustin/javascript-tricks-playground/network/members)
-
-</div>
-
----
-
-<div align="center">
-
-**🎉 Happy Coding! 🎉**
-
-*Remember: The best way to learn is by doing. Try these tricks in your own projects and experiment with variations!*
-
-</div>
+**Happy coding! 🎉**

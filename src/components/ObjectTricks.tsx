@@ -231,7 +231,7 @@ const result = get({a: {b: {c: 1}}}, 'a.b.c', 'default')`,
       <div className="examples-grid">
         {objectExamples.map((example, index) => (
           <div key={index} className="example-card">
-            <CodeBlock {...example} />
+            <CodeBlock {...example} category="objects" />
           </div>
         ))}
       </div>
