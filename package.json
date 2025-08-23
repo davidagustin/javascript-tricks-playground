@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/davidagustin/javascript-tricks-playground/issues"
   },
-  "homepage": "https://github.com/davidagustin/javascript-tricks-playground#readme",
+  "homepage": ".",
   "private": false,
   "engines": {
     "node": ">=16.0.0",
