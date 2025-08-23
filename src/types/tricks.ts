@@ -25,4 +25,5 @@ export interface CodeBlockProps {
   description?: string;
   result?: any;
   explanation?: string;
+  category?: string;
 }

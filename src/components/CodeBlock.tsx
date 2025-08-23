@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { CodeBlockProps } from '../types/tricks';
+import { useFavorites } from '../contexts/FavoritesContext';
 
 const CodeBlock: React.FC<CodeBlockProps> = ({ 
   code, 
   language = 'javascript', 
   title, 
   result, 
-  explanation 
+  explanation,
+  category = 'general'
 }) => {
   const [copied, setCopied] = useState(false);
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
   const copyToClipboard = async () => {
     try {
@@ -34,6 +37,17 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 
   const actualResult = result !== undefined ? result : executeCode();
 
+  const handleFavoriteToggle = () => {
+    const trick = { category, title: title || 'Untitled', code };
+    if (isFavorite(trick)) {
+      removeFavorite(trick);
+    } else {
+      addFavorite(trick);
+    }
+  };
+
+  const isFavorited = isFavorite({ category, title: title || 'Untitled', code });
+
   return (
     <div className="code-block">
       {title && <h4 className="code-title">{title}</h4>}
@@ -41,12 +55,21 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
       <div className="code-container">
         <div className="code-header">
           <span className="language-tag">{language}</span>
-          <button 
-            className={`copy-btn ${copied ? 'copied' : ''}`}
-            onClick={copyToClipboard}
-          >
-            {copied ? '✓ Copied!' : '📋 Copy'}
-          </button>
+          <div className="code-actions">
+            <button 
+              className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
+              onClick={handleFavoriteToggle}
+              title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+            >
+              {isFavorited ? '⭐' : '☆'}
+            </button>
+            <button 
+              className={`copy-btn ${copied ? 'copied' : ''}`}
+              onClick={copyToClipboard}
+            >
+              {copied ? '✓ Copied!' : '📋 Copy'}
+            </button>
+          </div>
         </div>
         
         <pre className="code-content">

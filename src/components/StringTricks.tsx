@@ -207,7 +207,7 @@ const result = wordCount('  hello   world  example  ')`,
       <div className="examples-grid">
         {stringExamples.map((example, index) => (
           <div key={index} className="example-card">
-            <CodeBlock {...example} />
+            <CodeBlock {...example} category="strings" />
           </div>
         ))}
       </div>

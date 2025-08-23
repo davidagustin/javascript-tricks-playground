@@ -182,7 +182,7 @@ const rotated = rotate([1,2,3,4,5], 2)`,
       <div className="examples-grid">
         {arrayExamples.map((example, index) => (
           <div key={index} className="example-card">
-            <CodeBlock {...example} />
+            <CodeBlock {...example} category="arrays" />
           </div>
         ))}
       </div>
