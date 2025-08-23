@@ -2,6 +2,10 @@
 
 A comprehensive, interactive tutorial showcasing powerful JavaScript tricks, one-liners, and advanced programming techniques. Built with React and TypeScript for an optimal learning experience.
 
+## 🌐 Live Demo
+
+🔗 **[View Live App](https://javascript-tricks-playground.vercel.app/)** - Try it now on Vercel!
+
 ## ✨ Features
 
 ### 🎯 **Comprehensive Content**
@@ -104,6 +108,8 @@ A comprehensive, interactive tutorial showcasing powerful JavaScript tricks, one
 - **Responsive Design** for all devices
 
 ## 🚀 Getting Started
+
+**🌟 Quick Start:** Visit the [live demo](https://javascript-tricks-playground.vercel.app/) to try the app immediately without any setup!
 
 ### Prerequisites
 - Node.js (v14 or higher)
