@@ -24,6 +24,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
     try {
       // Safe evaluation for demonstration
       const safeCode = code.replace(/console\.log/g, 'return');
+      // eslint-disable-next-line no-new-func
       const func = new Function(safeCode);
       return func();
     } catch (error) {
